@@ -1,0 +1,50 @@
+sp {drone*propose*t_land
+   (state <s> ^name drone
+              ^robot <r>
+              ^desired <d>
+              ^io.input-link <io>)
+   (<r> ^takeoff 1
+        ^flying 1
+        ^up 1
+        ^landed 0
+        ^landing 0
+        ^value > 500
+        ^table 0
+        ^forward < 30
+        ^reverse < 30
+        ^side < 20)
+   (<io> ^drone <n>)
+   (<n> ^diff2 1)
+   (<d> ^robot.table 1)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name t_land
+         ^table <r>)
+}
+sp {drone*apply*t_land
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<op> ^name t_land
+         ^table <r>)
+-->
+   (<out> ^table.aux 1)
+   (write (crlf) |Hurrah!! Found a table below me|)
+}
+
+sp {drone*apply*remove*t_land
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<op> ^name t_land)
+   (<r> ^table 0
+        ^forward <f>)
+   (<out> ^table <st>)
+   (<st> ^status complete)
+-->
+   (<r> ^table 1
+        ^table 0 -
+        ^forward 20
+        ^forward <f> -)
+   (<out> ^table <st> -)
+}

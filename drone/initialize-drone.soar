@@ -1,0 +1,42 @@
+sp {propose*initialize-drone
+   (state <s> ^superstate nil
+             -^name)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name initialize-drone)
+}
+
+sp {apply*initialize-drone
+   (state <s> ^operator <op>)
+   (<op> ^name initialize-drone)
+-->
+   (<s> ^name drone
+        ^robot <r>
+        ^desired <d>)
+   (<r> ^state 2
+        ^takeoff 0
+        ^landing 0
+        ^landed 1
+        ^flying 0
+        ^forward 0
+        ^value 0
+        ^table 0
+        ^notable 0
+        ^up 0
+        ^side 0
+        ^reverse 0
+        ^rep 0)
+   
+   (<d> ^name goal
+        ^robot <rr>)
+   
+   (<rr> ^takeoff 1
+         ^landing 1
+         ^landed 1
+         ^forward 1
+         ^table 1
+         ^flying 1
+         ^up 1
+         ^reverse 1)
+}                                                                               
+

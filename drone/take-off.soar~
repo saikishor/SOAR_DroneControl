@@ -1,0 +1,48 @@
+sp {drone*propose*takeoff
+   (state <s> ^name drone
+              ^robot <r>
+              ^desired <d>)
+   (<r> ^takeoff 0
+        ^landed 1
+        ^landing 0
+        ^flying 0)
+   (<d> ^robot.takeoff 1)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name takeoff
+         ^fromland <r>)
+}
+
+sp {drone*apply*takeoff
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<op> ^name takeoff
+         ^fromland <r>)
+-->
+   (<out> ^takeoff.aux 1)
+   (write (crlf) |Hurrah!! its takeoff time|)
+   (<r> ^takeoff 1
+        ^takeoff 0 -
+        ^landed 0
+        ^landed 1 -
+        ^flying 1
+        ^flying 0 -)
+}
+sp {drone*apply*remove*takeoff
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<op> ^name takeoff)
+   (<r> ^takeoff 0)
+   (<out> ^takeoff <st>)
+   (<st> ^status complete)
+-->
+   (<r> ^takeoff 1
+        ^takeoff 0 -
+        ^landed 0
+        ^landed 1 -
+        ^flying 1
+        ^flying 0 -)
+   (<out> ^takeoff <st> -)
+}

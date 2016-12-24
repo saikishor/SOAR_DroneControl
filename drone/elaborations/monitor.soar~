@@ -1,0 +1,9 @@
+#sp {gp*monitor*state
+#   (state <s> ^name gp
+#              ^person <p>)
+#   (<p> ^id 0
+#          ^obj1Id <pobj>)
+#-->
+#   (write (crlf) | pers_obj(| <pobj> |)|)
+#}
+  

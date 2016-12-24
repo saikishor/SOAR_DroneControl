@@ -1,0 +1,68 @@
+sp {drone*propose*takeoff
+   (state <s> ^name drone
+              ^robot <r>
+              ^desired <d>)
+   (<r> ^takeoff 0)
+   (<d> ^robot.takeoff 1)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name takeoff
+         ^fromland <r>)
+}
+
+sp {drone*apply*takeoff
+   (state <s> ^operator <op>
+              ^io.output-link <out>)
+   (<op> ^name takeoff
+         ^fromland <r>)
+-->
+   (<out> ^take-off.aux 1)
+}
+sp {drone*apply*remove*takeoff
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<op> ^name take-off)
+   (<r> ^takeoff 0)
+   (<out> ^take-off <st>)
+   (<st> ^status complete)
+-->
+   (<r> ^takeoff 1 
+                 0 -)
+   (<out> ^take-off <st> - )
+}
+
+sp {gp*apply*remove*introduce-me
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<op> ^name introduce-me)
+   (<r> ^introduced no)
+   (<out> ^introduce-me <st>)
+   (<st> ^status complete)
+-->
+   (<r> ^introduced yes
+                    no -)
+   (<out> ^introduce-me <st> -)
+}
+
+sp {gp*propose*introduce-me
+   (state <s> ^name gp
+              ^robot <r>
+              ^desired <d>)
+   (<r> ^introduced no)
+   (<d> ^robot.introduced yes)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name introduce-me
+         ^withRob <r>)
+}
+
+sp {gp*apply*introduce-me
+   (state <s> ^operator <op>
+              ^io.output-link <out>)
+   (<op> ^name introduce-me
+         ^withRob <r>)
+-->
+   (<out> ^introduce-me.aux 1)
+}

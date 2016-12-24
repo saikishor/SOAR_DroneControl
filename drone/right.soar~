@@ -1,0 +1,42 @@
+sp {drone*propose*right
+   (state <s> ^name drone
+              ^robot <r>
+              ^desired <d>)
+   (<r> ^takeoff 1
+        ^landed 0
+        ^landing 0
+        ^right 0
+        ^up 1)
+   (<d> ^robot.right 1)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name right
+         ^rig <r>)
+}
+
+sp {drone*apply*right
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<op> ^name right
+         ^rig <r>)
+-->
+   (<out> ^right.aux 1)
+   (write (crlf) |Right turn|)
+   (<r> ^right 1
+        ^right 0 -)
+}
+
+sp {drone*apply*remove*right
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<op> ^name right)
+   (<r> ^right 0)
+   (<out> ^right <st>)
+   (<st> ^status complete)
+-->
+   (<r> ^right 1
+        ^right 0 -)
+   (<out> ^right <st> -)
+}

@@ -1,0 +1,11 @@
+sp {drone*elaborate*table
+   (state <s> ^name drone
+              ^io.input-link <io>
+              ^robot <r>)
+   (<io> ^drone <n>)
+   (<n> ^valtd <v1>
+        ^altd <v2>)
+-->
+   (<r> ^value (- <v2> <v1>))
+}
+

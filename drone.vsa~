@@ -1,0 +1,22 @@
+VERSION 4
+/drone/drone.dm
+0	ROOT drone drone 1
+1	0	FOPERATOR _firstload _firstload.soar 2
+2	0	FOLDER all all 3
+3	0	FOLDER elaborations elaborations 4
+4	3	FOPERATOR _all _all.soar 5
+5	3	FOPERATOR goal-test goal-test.soar 6
+6	3	FOPERATOR table table.soar 7
+7	3	FOPERATOR top-state top-state.soar 8
+8	0	OPERATOR dumm dumm.soar 9
+9	0	OPERATOR forward forward.soar 10
+10	0	OPERATOR initialize-drone initialize-drone.soar 11
+11	0	OPERATOR land land.soar 12
+12	0	OPERATOR notable notable.soar 13
+13	0	OPERATOR reverse reverse.soar 14
+14	0	OPERATOR revzz revzz.soar 15
+15	0	OPERATOR side side.soar 16
+16	0	OPERATOR t_land t_land.soar 17
+17	0	OPERATOR take-off take-off.soar 18
+18	0	OPERATOR up up.soar 19
+END

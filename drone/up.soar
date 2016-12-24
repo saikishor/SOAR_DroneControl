@@ -1,0 +1,41 @@
+sp {drone*propose*up
+   (state <s> ^name drone
+              ^robot <r>
+              ^desired <d>)
+   (<r> ^takeoff 1
+        ^landed 0
+        ^landing 0
+        ^forward 0
+        ^up 0
+        ^flying 1)
+   (<d> ^robot.up 1)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name up
+         ^air <r>)
+}
+
+sp {drone*apply*up
+   (state <s> ^operator <op>
+              ^io.output-link  <out>
+              ^robot <r>)
+   (<op> ^name up
+         ^air <r>)
+-->
+   (<out> ^up.aux 1)
+   (write (crlf) |Increasing Altitude|)
+}
+
+sp {drone*apply*remove*up
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<op> ^name up)
+   (<r> ^up 0)
+   (<out> ^up <st>)
+   (<st> ^status complete)
+-->
+   (<r> ^up 1
+        ^up 0 -)
+   (<out> ^up <st> -)
+}

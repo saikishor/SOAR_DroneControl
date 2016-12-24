@@ -1,0 +1,18 @@
+source _firstload.soar
+pushd all
+source all_source.soar
+popd
+pushd elaborations
+source elaborations_source.soar
+popd
+source dumm.soar
+source forward.soar
+source initialize-drone.soar
+source land.soar
+source notable.soar
+source reverse.soar
+source revzz.soar
+source side.soar
+source t_land.soar
+source take-off.soar
+source up.soar

@@ -1,0 +1,3 @@
+pushd drone
+source drone_source.soar
+popd

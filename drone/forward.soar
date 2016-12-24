@@ -1,0 +1,48 @@
+sp {drone*propose*forward
+   (state <s> ^name drone
+              ^robot <r>
+              ^desired <d>
+              ^io.input-link <io>)
+   (<r> ^takeoff 1
+        ^landed 0
+        ^landing 0
+        ^up 1
+        ^side 0
+        ^forward < 5
+        ^reverse 0)
+   (<io> ^drone <n>)
+   (<n> ^diff1 0)
+   (<d> ^robot.forward 1)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name forward
+         ^for <r>)
+}
+
+sp {drone*apply*forward
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<r> ^forward <f>)
+   (<op> ^name forward
+         ^for <r>)
+-->
+   (<out> ^forward.aux 2)
+   (write (crlf) |forward|)
+}
+
+sp {drone*apply*remove*forward
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<op> ^name forward)
+   (<r> ^forward <f>)
+   (<out> ^forward <st>)
+   (<st> ^status complete)
+-->
+   (<r> ^forward (+ <f> 1)
+        ^forward <f> -
+        ^reverse 0
+        ^reverse 5 -)
+   (<out> ^forward <st> -)
+}

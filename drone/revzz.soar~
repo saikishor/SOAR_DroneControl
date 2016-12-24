@@ -1,0 +1,44 @@
+sp {drone*propose*revzz
+   (state <s> ^name drone
+              ^robot <r>
+              ^desired <d>)
+   (<r> ^reverse 5
+        ^forward 21
+        ^side 0
+        ^rep < 5)
+   (<d> ^robot.table 1)
+-->
+   (<s> ^operator <op> + =)
+   (<op> ^name revzz
+         ^move <r>)
+}
+sp {drone*apply*revzz
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<r> ^side 0)
+   (<op> ^name revzz
+         ^move <r>)
+-->
+   (write (crlf) |revzz right|)
+   (<out> ^revzz.aux 1)
+}
+
+sp {drone*apply*remove*revzz
+   (state <s> ^operator <op>
+              ^io.output-link <out>
+              ^robot <r>)
+   (<op> ^name revzz)
+   (<r> ^side 0
+        ^rep <x>)
+   (<out> ^revzz <st>)
+   (<st> ^status complete)
+-->
+   (<r> ^reverse 0
+        ^reverse  -
+        ^forward 0 
+        ^forward 21 -
+        ^rep (+ <x> 1)
+        ^rep <x> -)
+   (<out> ^revzz <st> -)
+}
